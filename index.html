@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O Horizonte de Eventos</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+  :root{
+    --void: #06060a;
+    --void-soft: #0d0d14;
+    --disk: #ff8a3d;
+    --disk-dim: #b8571f;
+    --lens: #7c5cff;
+    --ash: #cfcbd6;
+    --ash-dim: #7a7686;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--void);
+    color:var(--ash);
+    font-family:'Space Grotesk', sans-serif;
+    overflow-x:hidden;
+  }
+
+  ::selection{ background:var(--disk); color:#000; }
+
+  a{ color:inherit; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:2rem;
+    overflow:hidden;
+  }
+
+  .horizon-stage{
+    position:relative;
+    width:min(70vh, 620px);
+    height:min(70vh, 620px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:1rem;
+  }
+
+  .disk-ring{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    background:
+      conic-gradient(from 0deg,
+        transparent 0deg,
+        var(--disk-dim) 40deg,
+        var(--disk) 90deg,
+        #ffd9a8 140deg,
+        var(--disk) 190deg,
+        var(--disk-dim) 240deg,
+        transparent 300deg,
+        transparent 360deg);
+    filter: blur(18px);
+    animation: spin 14s linear infinite;
+    opacity:0.85;
+  }
+
+  .disk-ring.inner{
+    inset:12%;
+    filter: blur(8px);
+    animation: spin 9s linear infinite reverse;
+    opacity:0.9;
+  }
+
+  .event-horizon{
+    position:relative;
+    width:38%;
+    height:38%;
+    border-radius:50%;
+    background: radial-gradient(circle at 35% 35%, #000 0%, #000 55%, #000 100%);
+    box-shadow:
+      0 0 60px 20px rgba(0,0,0,0.9),
+      inset 0 0 40px 10px rgba(124,92,255,0.15);
+    z-index:2;
+  }
+
+  .lens-ring{
+    position:absolute;
+    width:42%;
+    height:42%;
+    border-radius:50%;
+    border:1px solid rgba(124,92,255,0.4);
+    z-index:3;
+    box-shadow: 0 0 30px 2px rgba(124,92,255,0.35);
+  }
+
+  @keyframes spin{
+    to{ transform: rotate(360deg); }
+  }
+
+  .eyebrow{
+    font-family:'Space Grotesk', sans-serif;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    font-size:0.7rem;
+    color:var(--disk);
+    margin-bottom:1.4rem;
+  }
+
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:clamp(2.6rem, 7vw, 5.5rem);
+    line-height:1.02;
+    color:#f4f2f8;
+    max-width:16ch;
+  }
+
+  h1 em{
+    font-style:italic;
+    font-weight:300;
+    color:var(--ash-dim);
+  }
+
+  .hero-sub{
+    max-width:46ch;
+    margin-top:1.6rem;
+    font-size:1.05rem;
+    line-height:1.6;
+    color:var(--ash-dim);
+  }
+
+  .scroll-cue{
+    position:absolute;
+    bottom:2.5rem;
+    font-size:0.7rem;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--ash-dim);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes pulse{
+    0%,100%{ opacity:0.35; }
+    50%{ opacity:0.9; }
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section{
+    max-width:920px;
+    margin:0 auto;
+    padding:7rem 2rem;
+    position:relative;
+  }
+
+  .section-head{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:1.5rem;
+    align-items:baseline;
+    margin-bottom:2.5rem;
+  }
+
+  .section-num{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1.1rem;
+    color:var(--disk);
+  }
+
+  .section-title{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:clamp(1.8rem, 4vw, 2.6rem);
+    color:#f4f2f8;
+  }
+
+  .rule{
+    border:none;
+    height:1px;
+    background:linear-gradient(90deg, rgba(255,138,61,0.5), transparent);
+    margin-bottom:2.5rem;
+  }
+
+  p{
+    font-size:1.05rem;
+    line-height:1.75;
+    color:var(--ash);
+    max-width:65ch;
+  }
+
+  p + p{ margin-top:1.2rem; }
+
+  .stat-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+    gap:2rem;
+    margin-top:3rem;
+  }
+
+  .stat{
+    border-left:1px solid rgba(255,138,61,0.3);
+    padding-left:1.2rem;
+  }
+
+  .stat-value{
+    font-family:'Fraunces', serif;
+    font-size:2.2rem;
+    color:var(--disk);
+    display:block;
+  }
+
+  .stat-label{
+    font-size:0.8rem;
+    color:var(--ash-dim);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+
+  /* ---------- SPAGHETTIFICATION VISUAL ---------- */
+  .fall-demo{
+    position:relative;
+    height:280px;
+    margin:3rem 0;
+    border-radius:12px;
+    background:linear-gradient(180deg, var(--void-soft), var(--void));
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .fall-hole{
+    position:absolute;
+    right:8%;
+    top:50%;
+    transform:translateY(-50%);
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:#000;
+    box-shadow:0 0 40px 12px rgba(124,92,255,0.25);
+  }
+
+  .traveler{
+    position:absolute;
+    left:8%;
+    top:50%;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    background:var(--ash);
+    transform:translateY(-50%);
+    animation: stretch-fall 4.5s ease-in infinite;
+  }
+
+  @keyframes stretch-fall{
+    0%{ left:8%; width:26px; height:26px; border-radius:50%; opacity:1; }
+    70%{ left:78%; width:70px; height:6px; border-radius:6px; opacity:1; }
+    85%{ left:86%; width:20px; height:3px; opacity:0.6; }
+    100%{ left:88%; width:4px; height:2px; opacity:0; }
+  }
+
+  .fall-caption{
+    position:absolute;
+    bottom:1rem;
+    left:1.5rem;
+    font-size:0.75rem;
+    color:var(--ash-dim);
+    letter-spacing:0.05em;
+  }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline{
+    margin-top:3rem;
+    border-left:1px solid rgba(207,203,214,0.15);
+    padding-left:2rem;
+  }
+
+  .timeline-item{
+    position:relative;
+    margin-bottom:2.6rem;
+  }
+
+  .timeline-item::before{
+    content:'';
+    position:absolute;
+    left:-2.44rem;
+    top:0.4rem;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--disk);
+    box-shadow:0 0 12px 3px rgba(255,138,61,0.5);
+  }
+
+  .timeline-year{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    color:var(--disk);
+    font-size:1rem;
+    margin-bottom:0.3rem;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align:center;
+    padding:5rem 2rem 4rem;
+    color:var(--ash-dim);
+    font-size:0.85rem;
+  }
+
+  footer .rule{ max-width:200px; margin:0 auto 2rem; }
+
+  @media (max-width: 640px){
+    section{ padding:5rem 1.5rem; }
+    .section-head{ grid-template-columns:1fr; gap:0.4rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; }
+  }
+</style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="horizon-stage">
+      <div class="disk-ring"></div>
+      <div class="disk-ring inner"></div>
+      <div class="lens-ring"></div>
+      <div class="event-horizon"></div>
+    </div>
+    <p class="eyebrow">Relatividade geral · Astrofísica</p>
+    <h1>O ponto <em>de onde</em><br>nada retorna</h1>
+    <p class="hero-sub">
+      A uma certa distância de um buraco negro, a velocidade de escape supera a velocidade da luz.
+      Essa fronteira invisível — o horizonte de eventos — é o limite mais absoluto que existe no universo.
+    </p>
+    <span class="scroll-cue">role para atravessar ↓</span>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Uma fronteira sem substância</h2>
+    </div>
+    <hr class="rule">
+    <p>
+      O horizonte de eventos não é uma superfície física. Não há nada ali para tocar, nenhuma
+      parede, nenhuma força que empurre de volta. É puramente geométrico: o lugar exato onde
+      o espaço-tempo se curva tanto que todos os caminhos possíveis, inclusive os da luz, apontam
+      para dentro.
+    </p>
+    <p>
+      Um astronauta cruzando essa linha não sentiria nada de especial no momento da travessia —
+      nenhum estalo, nenhuma resistência. Só perceberia, tarde demais, que todo o futuro possível
+      agora leva à singularidade.
+    </p>
+    <div class="stat-grid">
+      <div class="stat">
+        <span class="stat-value">2.95 km</span>
+        <span class="stat-label">raio de Schwarzschild do Sol, se colapsasse</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">~13 km</span>
+        <span class="stat-label">raio de um buraco negro estelar típico</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">4.3M M☉</span>
+        <span class="stat-label">massa de Sagittarius A*, no centro da Via Láctea</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Espaguetificação</h2>
+    </div>
+    <hr class="rule">
+    <p>
+      Perto o bastante do horizonte, a gravidade que puxa os pés de um corpo em queda é
+      mensuravelmente mais forte do que a que puxa sua cabeça. Essa diferença de forças —
+      a força de maré — estica qualquer objeto até ele se tornar um fio fino de matéria.
+      Os físicos chamam isso, sem muita cerimônia, de espaguetificação.
+    </p>
+    <div class="fall-demo">
+      <div class="traveler"></div>
+      <div class="fall-hole"></div>
+      <span class="fall-caption">simulação conceitual — não está em escala</span>
+    </div>
+    <p>
+      Em buracos negros estelares, isso acontece bem antes do horizonte, de forma violenta.
+      Em buracos negros supermassivos, como Sagittarius A*, a curvatura é tão suave que um
+      objeto poderia cruzar o horizonte inteiro sem ser esticado — o fim viria só muito depois,
+      perto da singularidade.
+    </p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Como sabemos que existem</h2>
+    </div>
+    <hr class="rule">
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">1915</div>
+        <p>Einstein publica a Relatividade Geral. Meses depois, Karl Schwarzschild encontra
+        uma solução exata das equações que prevê um raio limite ao redor de qualquer massa.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1971</div>
+        <p>Cygnus X-1 é identificado como o primeiro forte candidato a buraco negro estelar,
+        através dos raios X emitidos pela matéria sendo despedaçada ao seu redor.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2015</div>
+        <p>O LIGO detecta pela primeira vez ondas gravitacionais — a fusão de dois buracos
+        negros, confirmando uma previsão de um século antes.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2019</div>
+        <p>O Event Horizon Telescope divulga a primeira imagem direta de um horizonte de
+        eventos: a sombra do buraco negro no centro da galáxia M87.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <hr class="rule">
+    <p>Feito para explorar uma ideia simples: existe um limite depois do qual não há retorno.</p>
+  </footer>
+
+</body>
+</html>
